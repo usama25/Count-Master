@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GameAnalyticsSDK;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,12 +24,16 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
+        GameAnalytics.Initialize();
     }
 
     void Start()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Init();
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Level_Started", "Level_No_"+LevelManager.instance.CurrentLevel.ToString());
+     
     }
 
     private void Init()

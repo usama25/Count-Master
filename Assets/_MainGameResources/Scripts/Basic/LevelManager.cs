@@ -108,6 +108,7 @@ public class LevelManager : MonoBehaviour
         PlayerPrefs.SetInt("main_levelno", PlayerPrefs.GetInt("main_levelno") + 1);
         PlayerPrefs.SetInt("list_levelno", PlayerPrefs.GetInt("list_levelno") + 1);
         CurrentLevel++;
+        Debug.Log("hellooooooo");
     }
 
 

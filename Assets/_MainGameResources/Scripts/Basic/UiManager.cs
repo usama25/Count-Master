@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using GameAnalyticsSDK;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -95,16 +96,18 @@ public class UiManager : MonoBehaviour
         LevelManager levelManager = FindObjectOfType<LevelManager>();
         if (CurrentLevel == levelManager.maxLevels)
             CurrentLevel = 0;
-        //AnalyticsController.instance.LevelCompleteAnalytics();
+        
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Level_Complete", "Level_No_"+CurrentLevel.ToString());
+
         MainLevelNo++;
     }
 
     public void CoinsOnWin()
     {
-        Coins += coinsEarned + _upgardesManager.GetCurrentUpgradeValue(1);
-        winCoins.text = "+" + (coinsEarned + _upgardesManager.GetCurrentUpgradeValue(1)).ToString();
-        SetCoinsText();
-        CoinsAnim();
+        // Coins += coinsEarned + _upgardesManager.GetCurrentUpgradeValue(1);
+        // winCoins.text = "+" + (coinsEarned + _upgardesManager.GetCurrentUpgradeValue(1)).ToString();
+        // SetCoinsText();
+        // CoinsAnim();
     }
 
     // [HideInInspector]
@@ -147,6 +150,7 @@ public class UiManager : MonoBehaviour
 
         failed = true;
         ui_Gameplay.gameObject.SetActive(false);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "Level_Failed", "Level_No_"+CurrentLevel.ToString());
         StartCoroutine(LevelFailedDelay(delay));
         //AnalyticsController.instance.LevelFailedAnalytics();
     }
