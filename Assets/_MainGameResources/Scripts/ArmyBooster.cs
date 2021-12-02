@@ -39,6 +39,7 @@ public class ArmyBooster : MonoBehaviour
         {
             PlayerController.Instance.AddSoldiers(factor);
         }
+        PlayerController.Instance.spawner.RearrangeAll();
         HapticManager.instance.Haptic_Medium();
     }
 }
